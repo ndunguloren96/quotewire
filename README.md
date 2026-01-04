@@ -1,24 +1,28 @@
 # QuoteWire
 
-QuoteWire is a modern, single-page application (SPA) designed to deliver profound, strategic, and user-centric quotes. It leverages the power of Next.js 16 (App Router), AWS DynamoDB for scalable storage, Clerk for secure authentication, and Google Gemini AI for personalized content generation.
+QuoteWire is a modern, single-page application (SPA) designed to deliver profound, strategic, and user-centric quotes. It leverages the power of Next.js 16 (App Router), AWS DynamoDB for scalable storage, and Google Gemini AI for content generation and discovery.
 
 ## Features
 
 -   **Daily Inspiration:** A curated "Quote of the Day" that refreshes daily.
--   **Random Discovery:** Instantly discover new profound thoughts from a vast database.
--   **Sharp Aesthetic:** A refined, "sharp" design language focusing on typography, minimalism, and Dark Mode support.
--   **Interactive Experience:** Like, copy, and share quotes seamlessly.
--   **Performance:** Optimized with Next.js App Router and Tailwind CSS.
+-   **Random Discovery:** Instantly discover new profound thoughts from a vast database of thousands of quotes.
+-   **Total Quote Counter:** Real-time counter showing the total number of quotes available on the platform.
+-   **Sharp Aesthetic:** A refined, "sharp" design language focusing on typography, minimalism, and premium UX.
+-   **Advanced Search:** Search for quotes by author or keywords with professionally handled empty states.
+-   **Premium Dark Mode:** Custom-built, animated theme toggle with a smooth, high-quality feel.
+-   **No Authentication Required:** A seamless, friction-free experience for all users.
+-   **Mobile Friendly:** Fully responsive design that adapts beautifully to any device.
+-   **SEO Optimized:** Comprehensive metadata for search engine visibility and social sharing.
 
 ## Tech Stack
 
 -   **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 -   **Language:** TypeScript
--   **Styling:** Tailwind CSS (Sharp/Minimal Design + Dark Mode)
+-   **Styling:** Tailwind CSS (Sharp/Minimal Design + Custom Palettes)
 -   **Database:** AWS DynamoDB (Single Table Design)
--   **Authentication:** [Clerk](https://clerk.com/) (Soft Gate)
 -   **AI Engine:** Google Gemini AI
 -   **Icons:** Lucide React
+-   **Animations:** Framer Motion
 
 ## Getting Started
 
@@ -26,7 +30,6 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 
 -   Node.js (v18+)
 -   AWS Account (for DynamoDB)
--   Clerk Account (for Auth)
 -   Google Cloud/AI Studio Account (for Gemini API)
 
 ### Installation
@@ -43,7 +46,13 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
     ```
 
 3.  **Configure Environment Variables:**
-    Rename `.env.local.example` to `.env.local` and fill in your keys.
+    Create a `.env.local` file and fill in your keys:
+    ```bash
+    AWS_ACCESS_KEY_ID=your_access_key
+    AWS_SECRET_ACCESS_KEY=your_secret_key
+    AWS_REGION=your_region
+    GEMINI_API_KEY=your_gemini_api_key
+    ```
 
 4.  **Setup Database:**
     Run the setup script to create the DynamoDB table:
@@ -52,7 +61,7 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
     ```
 
 5.  **Seed Data:**
-    Populate the database.
+    Populate the database with thousands of quotes:
     ```bash
     # Bulk Seed (from external JSONs, ~6k+ quotes)
     npx tsx scripts/seed-bulk.ts
@@ -73,20 +82,20 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 ```
 src/
 ├── app/                 # Next.js App Router pages and API routes
-│   ├── api/             # Backend API endpoints
-│   ├── layout.tsx       # Root layout with ThemeProvider
-│   └── page.tsx         # Main View (Daily + Random)
-├── components/          # UI Components
-│   ├── QuoteCard.tsx    # Premium Card
-│   └── ThemeToggle.tsx  # Light/Dark Mode Switcher
-├── lib/                 # Utilities
-└── proxy.ts             # Clerk Middleware
-scripts/                 # Database setup and seeding
+│   ├── api/             # Backend API endpoints (Daily, Random, Search, etc.)
+│   ├── layout.tsx       # Root layout with SEO and ThemeProvider
+│   └── page.tsx         # Main View (Daily + Random + Search)
+├── components/          # Reusable UI Components
+│   ├── Header.tsx       # Integrated, sticky header
+│   ├── QuoteCard.tsx    # Premium sharp card component
+│   └── ThemeToggle.tsx  # Custom animated theme switcher
+├── lib/                 # Utilities (DynamoDB client, types)
+scripts/                 # Database setup and seeding scripts
 ```
 
-## Contributing
+## Credits
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Built by [@loren_kamau](https://x.com/loren_kamau)
 
 ## License
 

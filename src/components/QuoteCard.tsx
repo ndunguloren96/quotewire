@@ -1,22 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { Heart, Copy, Share2, Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Heart, Copy, Check, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface QuoteCardProps {
-  pk: string;
-  sk: string;
+  PK: string;
+  SK: string;
   text: string;
   author: string;
   tags: string[];
-  initialLikes?: number;
+  likes?: number;
+  views?: number;
 }
 
-export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: QuoteCardProps) {
+export function QuoteCard({ PK, SK, text, author, tags, likes: initialLikes = 0, views: initialViews = 0 }: QuoteCardProps) {
   const [likes, setLikes] = useState(initialLikes);
+  const [views, setViews] = useState(initialViews);
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  // Log view on mount
+  useEffect(() => {
+    const logView = async () => {
+      try {
+        const res = await fetch("/api/quotes/view", {
+          method: "POST",
+          body: JSON.stringify({ pk: PK, sk: SK }),
+        });
+        const data = await res.json();
+        if (data.views) setViews(data.views);
+      } catch (error) {
+        console.error("Failed to log view:", error);
+      }
+    };
+    logView();
+  }, [PK, SK]);
 
   const handleLike = async () => {
     if (liked) return;
@@ -26,21 +45,8 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
     try {
       await fetch("/api/quotes/like", {
         method: "POST",
-        body: JSON.stringify({ pk, sk }),
+        body: JSON.stringify({ pk: PK, sk: SK }),
       });
-      
-      // Store in local storage for personalization
-      const storedLikes = JSON.parse(localStorage.getItem("liked_quotes") || "[]");
-      if (!storedLikes.find((q: any) => q.sk === sk)) {
-        storedLikes.push({ pk, sk, text, author, tags });
-        localStorage.setItem("liked_quotes", JSON.stringify(storedLikes));
-        
-        const storedCats = JSON.parse(localStorage.getItem("user_interests") || "[]");
-        tags.forEach(tag => {
-          if (!storedCats.includes(tag)) storedCats.push(tag);
-        });
-        localStorage.setItem("user_interests", JSON.stringify(storedCats));
-      }
     } catch (error) {
       console.error("Failed to like:", error);
     }
@@ -52,23 +58,13 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "QuoteWire",
-        text: `"${text}" - ${author}`,
-        url: window.location.href,
-      });
-    }
-  };
-
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card text-card-foreground p-6 md:p-8 rounded-none shadow-sm border border-border flex flex-col gap-4 relative group transition-all hover:shadow-md dark:shadow-none"
+      className="bg-card text-card-foreground p-6 md:p-8 rounded-none shadow-sm border border-border flex flex-col gap-4 relative group transition-all hover:shadow-md dark:shadow-none h-full"
     >
-      <div className="relative">
+      <div className="relative flex-grow">
         <span className="text-4xl text-muted/20 absolute -top-3 -left-2 font-serif leading-none select-none">“</span>
         <p className="text-lg md:text-xl font-medium leading-relaxed relative z-10 pl-2">
           {text}
@@ -88,14 +84,19 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
       </div>
 
       <div className="flex items-center justify-between mt-2 pt-4 border-t border-border pl-2">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <button 
             onClick={handleLike}
             className={`flex items-center gap-1.5 transition-colors ${liked ? 'text-destructive' : 'text-muted-foreground hover:text-destructive'}`}
           >
-            <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
-            <span className="text-sm font-semibold">{likes}</span>
+            <Heart className={`w-4 h-4 ${liked ? 'fill-current' : ''}`} />
+            <span className="text-xs font-semibold">{likes}</span>
           </button>
+          
+          <div className="flex items-center gap-1.5 text-muted-foreground">
+            <Eye className="w-4 h-4" />
+            <span className="text-xs font-semibold">{new Intl.NumberFormat('en-US', { notation: "compact" }).format(views)}</span>
+          </div>
         </div>
         
         <div className="flex items-center gap-3">
@@ -111,5 +112,3 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
     </motion.div>
   );
 }
-        
-        
