@@ -394,7 +394,7 @@ export default function Home() {
 
 
 
-                      {/* Random Quote */}
+                                {/* Random Quote */}
 
 
 
@@ -402,7 +402,7 @@ export default function Home() {
 
 
 
-                      <div className="flex flex-col gap-6">
+                                <div className="flex flex-col gap-6">
 
 
 
@@ -410,7 +410,7 @@ export default function Home() {
 
 
 
-                        <div className="flex items-center justify-between">
+                                  <div className="flex items-center justify-between">
 
 
 
@@ -418,7 +418,7 @@ export default function Home() {
 
 
 
-                          <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-2">
 
 
 
@@ -426,7 +426,7 @@ export default function Home() {
 
 
 
-                            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
+                                      <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
 
 
 
@@ -434,7 +434,7 @@ export default function Home() {
 
 
 
-                            <span className="text-[10px] text-muted-foreground/60 bg-secondary px-1.5 py-0.5 rounded-none font-mono">
+                                      <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded-none font-mono">
 
 
 
@@ -442,7 +442,7 @@ export default function Home() {
 
 
 
-                              {randomQuote?.total ? new Intl.NumberFormat().format(randomQuote.total) : '---'}
+                                        {randomQuote?.total ? new Intl.NumberFormat().format(randomQuote.total) : '---'}
 
 
 
@@ -450,7 +450,7 @@ export default function Home() {
 
 
 
-                            </span>
+                                      </span>
 
 
 
@@ -458,7 +458,7 @@ export default function Home() {
 
 
 
-                          </div>
+                                    </div>
 
 
 
@@ -466,7 +466,7 @@ export default function Home() {
 
 
 
-                          <button 
+                                    <button 
 
 
 
@@ -474,7 +474,7 @@ export default function Home() {
 
 
 
-                            onClick={fetchNewRandom} 
+                                      onClick={fetchNewRandom} 
 
 
 
@@ -482,7 +482,7 @@ export default function Home() {
 
 
 
-                            disabled={loadingRandom}
+                                      disabled={loadingRandom}
 
 
 
@@ -490,43 +490,87 @@ export default function Home() {
 
 
 
-            
+                                      className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-primary dark:hover:text-primary flex items-center gap-2 disabled:opacity-50 transition-colors"
 
 
 
-                  className="text-xs font-bold uppercase tracking-wider text-foreground hover:text-primary flex items-center gap-2 disabled:opacity-50 transition-colors"
+  
 
 
 
-                >
+                                    >
 
 
 
-                  {loadingRandom ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
+  
 
 
 
-                  Next Quote
+                                      {loadingRandom ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
 
 
 
-                </button>
+  
 
 
 
-              </div>
+                                      Next Quote
 
 
 
-              {randomQuote ? (
+  
 
 
 
-                <QuoteCard key={randomQuote.SK} {...randomQuote} />
+                                    </button>
 
 
 
-              ) : (
+  
+
+
+
+                                  </div>
+
+
+
+  
+
+
+
+                                              {randomQuote?.quote ? (
+
+
+
+  
+
+
+
+                                                <QuoteCard key={randomQuote.quote.SK} {...randomQuote.quote} />
+
+
+
+  
+
+
+
+                                              ) : (
+
+
+
+  
+
+
+
+                                  
+
+
+
+  
+
+
+
+                      
 
 
 
