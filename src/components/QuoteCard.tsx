@@ -20,7 +20,10 @@ export function QuoteCard({ PK, SK, text, author, tags, likes: initialLikes = 0,
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Log view on mount
+  const formatCount = (num: number) => {
+    return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(num);
+  };
+
   useEffect(() => {
     const logView = async () => {
       try {
@@ -90,12 +93,12 @@ export function QuoteCard({ PK, SK, text, author, tags, likes: initialLikes = 0,
             className={`flex items-center gap-1.5 transition-colors ${liked ? 'text-destructive' : 'text-muted-foreground hover:text-destructive'}`}
           >
             <Heart className={`w-4 h-4 ${liked ? 'fill-current' : ''}`} />
-            <span className="text-xs font-semibold">{likes}</span>
+            <span className="text-xs font-semibold">{formatCount(likes)}</span>
           </button>
           
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Eye className="w-4 h-4" />
-            <span className="text-xs font-semibold">{new Intl.NumberFormat('en-US', { notation: "compact" }).format(views)}</span>
+            <span className="text-xs font-semibold">{formatCount(views)}</span>
           </div>
         </div>
         

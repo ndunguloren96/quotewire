@@ -7,7 +7,6 @@ export async function GET() {
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
   try {
-    // 1. Check if daily quote exists for today
     const dailyResult = await docClient.send(new GetCommand({
       TableName: TABLE_NAME,
       Key: {
@@ -20,7 +19,6 @@ export async function GET() {
       return NextResponse.json(dailyResult.Item);
     }
 
-    // 2. If not, pick a random one from the categories
     const allResult = await docClient.send(new ScanCommand({
       TableName: TABLE_NAME,
       FilterExpression: "begins_with(PK, :cat)",
@@ -36,7 +34,6 @@ export async function GET() {
     const randomIndex = Math.floor(Math.random() * allResult.Items.length);
     const selectedQuote = allResult.Items[randomIndex];
 
-    // 3. Save as today's daily quote
     const dailyQuote = {
       PK: "DAILY#QUOTE",
       SK: `DATE#${today}`,
