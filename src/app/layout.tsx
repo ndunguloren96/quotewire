@@ -24,7 +24,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "QuoteWire | Premium Daily Inspiration",
-  description: "A fast, strategic, and user-centric platform for profound quotes.",
+  description: "Discover profound, strategic, and user-centric quotes. Your daily source for wisdom, motivation, and creative thought.",
+  keywords: ["quotes", "inspiration", "wisdom", "daily quote", "motivation", "philosophy", "quotewire"],
+  openGraph: {
+    title: "QuoteWire | Premium Daily Inspiration",
+    description: "Discover profound, strategic, and user-centric quotes.",
+    type: "website",
+    locale: "en_US",
+    siteName: "QuoteWire",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QuoteWire",
+    description: "Your daily source for wisdom and motivation.",
+  },
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({
@@ -59,7 +73,7 @@ export default function RootLayout({
                 `,
               }}
             />
-            <header className="flex justify-between items-center p-6 gap-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-50">
+            <header className="flex justify-between items-center p-6 gap-4 border-b border-zinc-100/50 dark:border-zinc-800/50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-50">
               <div className="font-serif font-bold text-2xl tracking-tighter">QuoteWire</div>
               <div className="flex items-center gap-4">
                 <ModeToggle />

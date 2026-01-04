@@ -98,23 +98,30 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
           </button>
         </div>
         
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={handleCopy}
-            className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
-            title="Copy to clipboard"
-          >
-            {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
-          </button>
-          <button 
-            onClick={handleShare}
-            className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
-            title="Share"
-          >
-            <Share2 className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+                <div className="flex items-center gap-3">
+        
+                  <button 
+        
+                    onClick={handleCopy}
+        
+                    className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+        
+                    title="Copy to clipboard"
+        
+                  >
+        
+                    {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
+        
+                  </button>
+        
+                </div>
+        
+              </div>
+        
+            </motion.div>
+        
+          );
+        
+        }
+        
+        
