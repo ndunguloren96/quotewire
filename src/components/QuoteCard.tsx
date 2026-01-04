@@ -66,28 +66,28 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white p-8 rounded-2xl shadow-sm border border-zinc-100 flex flex-col gap-6 relative group transition-all hover:shadow-md"
+      className="bg-white p-6 md:p-8 rounded-none shadow-sm border border-zinc-200 flex flex-col gap-4 relative group transition-all hover:shadow-md"
     >
       <div className="relative">
-        <span className="text-6xl text-zinc-100 absolute -top-4 -left-4 font-serif leading-none select-none">“</span>
-        <p className="text-xl md:text-2xl text-zinc-800 font-medium leading-relaxed relative z-10">
+        <span className="text-4xl text-zinc-200 absolute -top-3 -left-2 font-serif leading-none select-none">“</span>
+        <p className="text-lg md:text-xl text-zinc-900 font-medium leading-relaxed relative z-10 pl-2">
           {text}
         </p>
       </div>
       
-      <div className="flex flex-col gap-4">
-        <p className="text-zinc-500 font-medium">— {author}</p>
+      <div className="flex flex-col gap-3">
+        <p className="text-zinc-500 font-medium text-sm pl-2">— {author}</p>
         
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pl-2">
           {tags.map(tag => (
-            <span key={tag} className="text-xs font-semibold px-2.5 py-1 bg-zinc-50 text-zinc-400 rounded-full border border-zinc-100">
-              #{tag}
+            <span key={tag} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-zinc-50 text-zinc-500 border border-zinc-100">
+              {tag}
             </span>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-6 border-t border-zinc-50">
+      <div className="flex items-center justify-between mt-2 pt-4 border-t border-zinc-50 pl-2">
         <div className="flex items-center gap-4">
           <button 
             onClick={handleLike}
