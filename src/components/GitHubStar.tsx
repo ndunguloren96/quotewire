@@ -47,13 +47,13 @@ export function GitHubStar() {
       href="https://github.com/ndunguloren96/quotewire"
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-2 px-3 py-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700 transition-all group"
+      className="flex items-center gap-2 px-3 py-1.5 bg-secondary/50 hover:bg-secondary border border-border transition-all group"
       title="Star on GitHub"
     >
-      <Github className="w-5 h-5 text-zinc-900 dark:text-white" />
-      <div className="flex items-center gap-1 border-l border-zinc-200 dark:border-zinc-700 pl-2">
-        <Star className="w-3.5 h-3.5 text-amber-500 group-hover:fill-amber-500 transition-all" />
-        <span className="text-xs font-bold font-mono text-zinc-600 dark:text-zinc-400">
+      <Github className="w-4 h-4 text-foreground" />
+      <div className="flex items-center gap-1 border-l border-border pl-2">
+        <Star className="w-3 h-3 text-amber-500 group-hover:fill-amber-500 transition-all" />
+        <span className="text-[10px] font-bold font-mono text-muted-foreground group-hover:text-foreground">
           {stars !== null ? stars.toLocaleString() : "---"}
         </span>
       </div>
