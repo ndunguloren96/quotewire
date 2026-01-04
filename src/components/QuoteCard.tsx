@@ -66,62 +66,50 @@ export function QuoteCard({ pk, sk, text, author, tags, initialLikes = 0 }: Quot
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-zinc-950 p-6 md:p-8 rounded-none shadow-sm border border-zinc-200 dark:border-zinc-800 flex flex-col gap-4 relative group transition-all hover:shadow-md dark:shadow-none"
+      className="bg-card text-card-foreground p-6 md:p-8 rounded-none shadow-sm border border-border flex flex-col gap-4 relative group transition-all hover:shadow-md dark:shadow-none"
     >
       <div className="relative">
-        <span className="text-4xl text-zinc-200 dark:text-zinc-800 absolute -top-3 -left-2 font-serif leading-none select-none">“</span>
-        <p className="text-lg md:text-xl text-zinc-900 dark:text-zinc-50 font-medium leading-relaxed relative z-10 pl-2">
+        <span className="text-4xl text-muted/20 absolute -top-3 -left-2 font-serif leading-none select-none">“</span>
+        <p className="text-lg md:text-xl font-medium leading-relaxed relative z-10 pl-2">
           {text}
         </p>
       </div>
       
       <div className="flex flex-col gap-3">
-        <p className="text-zinc-500 dark:text-zinc-400 font-medium text-sm pl-2">— {author}</p>
+        <p className="text-muted-foreground font-medium text-sm pl-2">— {author}</p>
         
         <div className="flex flex-wrap gap-2 pl-2">
           {tags.map(tag => (
-            <span key={tag} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-zinc-50 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 border border-zinc-100 dark:border-zinc-800">
+            <span key={tag} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 bg-secondary text-secondary-foreground border border-border">
               {tag}
             </span>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-2 pt-4 border-t border-zinc-50 dark:border-zinc-900 pl-2">
+      <div className="flex items-center justify-between mt-2 pt-4 border-t border-border pl-2">
         <div className="flex items-center gap-4">
           <button 
             onClick={handleLike}
-            className={`flex items-center gap-1.5 transition-colors ${liked ? 'text-red-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-red-500 dark:hover:text-red-500'}`}
+            className={`flex items-center gap-1.5 transition-colors ${liked ? 'text-destructive' : 'text-muted-foreground hover:text-destructive'}`}
           >
             <Heart className={`w-5 h-5 ${liked ? 'fill-current' : ''}`} />
             <span className="text-sm font-semibold">{likes}</span>
           </button>
         </div>
         
-                <div className="flex items-center gap-3">
-        
-                  <button 
-        
-                    onClick={handleCopy}
-        
-                    className="p-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
-        
-                    title="Copy to clipboard"
-        
-                  >
-        
-                    {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
-        
-                  </button>
-        
-                </div>
-        
-              </div>
-        
-            </motion.div>
-        
-          );
-        
-        }
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={handleCopy}
+            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+            title="Copy to clipboard"
+          >
+            {copied ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
         
         

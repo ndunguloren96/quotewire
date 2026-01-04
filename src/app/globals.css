@@ -1,24 +1,103 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
 :root {
+  /* Light Mode Palette - Sharp, High Contrast, Warm/Neutral Zinc */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #18181b; /* Zinc 950 */
+  
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  
+  /* Primary: Violet (Brand) */
+  --primary: #6c47ff;
+  --primary-foreground: #ffffff;
+  
+  /* Secondary: Subtle Zinc */
+  --secondary: #f4f4f5; /* Zinc 100 */
+  --secondary-foreground: #18181b;
+  
+  /* Muted: For metadata/subtitles */
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a; /* Zinc 500 - WCAG AA Large, 4.5:1 Normal */
+  
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+
+  --border: #e4e4e7; /* Zinc 200 */
+  --input: #e4e4e7;
+  --ring: #6c47ff;
+  
+  --radius: 0rem; /* Sharp features as requested previously */
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /* Dark Mode Palette - Deep, Rich, Reduces Eye Strain */
+  --background: #09090b; /* Zinc 950 - slightly warmer than pure black */
+  --foreground: #f4f4f5; /* Zinc 100 */
+  
+  --card: #09090b;
+  --card-foreground: #f4f4f5;
+  
+  --popover: #09090b;
+  --popover-foreground: #f4f4f5;
+  
+  /* Primary Dark: Lighter Violet for visibility */
+  --primary: #8a6eff; 
+  --primary-foreground: #ffffff;
+  
+  --secondary: #27272a; /* Zinc 800 */
+  --secondary-foreground: #f4f4f5;
+  
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa; /* Zinc 400 - Good contrast on dark */
+  
+  --accent: #27272a;
+  --accent-foreground: #f4f4f5;
+  
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f4f4f5;
+
+  --border: #27272a; /* Zinc 800 */
+  --input: #27272a;
+  --ring: #8a6eff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
