@@ -16,19 +16,33 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "QuoteWire | Premium Daily Inspiration",
-  description: "Discover profound, strategic, and user-centric quotes. Your daily source for wisdom, motivation, and creative thought.",
+  description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
   keywords: ["quotes", "inspiration", "wisdom", "daily quote", "motivation", "philosophy", "quotewire"],
+  icons: {
+    icon: "/quotewire.ico",
+    shortcut: "/quotewire.ico",
+    apple: "/quotewire.png",
+  },
   openGraph: {
     title: "QuoteWire | Premium Daily Inspiration",
-    description: "Discover profound, strategic, and user-centric quotes.",
+    description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
     type: "website",
     locale: "en_US",
     siteName: "QuoteWire",
+    images: [
+      {
+        url: "/quotewire.png",
+        width: 1200,
+        height: 630,
+        alt: "QuoteWire - Premium Daily Inspiration",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "QuoteWire",
-    description: "Your daily source for wisdom and motivation.",
+    title: "QuoteWire | Premium Daily Inspiration",
+    description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
+    images: ["/quotewire.png"],
   },
 };
 
