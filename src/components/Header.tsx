@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { ModeToggle } from "@/components/ThemeToggle";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -29,10 +28,6 @@ export function Header() {
       </Link>
       <div className="flex items-center gap-4">
         <ModeToggle />
-        
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
       </div>
     </header>
   );

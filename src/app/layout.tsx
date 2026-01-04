@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import {
-  ClerkProvider,
-} from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/Header";
@@ -41,39 +38,54 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300`}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300 min-h-screen flex flex-col`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  if ('serviceWorker' in navigator) {
-                    window.addEventListener('load', function() {
-                      navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                      }, function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
-                      });
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                if ('serviceWorker' in navigator) {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                      console.log('ServiceWorker registration successful');
+                    }, function(err) {
+                      console.log('ServiceWorker registration failed: ', err);
                     });
-                  }
-                `,
-              }}
-            />
-            <Header />
-            <main className="min-h-screen">
-              {children}
-            </main>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+                  });
+                }
+              `,
+            }}
+          />
+          <Header />
+          <main className="flex-grow pt-4">
+            {children}
+          </main>
+          
+          <footer className="border-t border-zinc-100 dark:border-zinc-800 py-8 mt-12">
+            <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-medium">
+              <p>QuoteWire | © {new Date().getFullYear()} | All rights reserved.</p>
+              <p>
+                Built by{" "}
+                <a 
+                  href="https://x.com/loren_kamau" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-foreground hover:text-primary transition-colors underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2"
+                >
+                  @loren_kamau
+                </a>
+              </p>
+            </div>
+          </footer>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

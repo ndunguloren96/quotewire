@@ -52,69 +52,183 @@ export default function Home() {
 
 
 
-  const fetchNewRandom = async () => {
-
-    setLoadingRandom(true);
-
-    try {
-
-      const res = await fetch("/api/quotes/random");
-
-      const data = await res.json();
-
-      setRandomQuote(data);
-
-    } catch (err) { console.error(err); }
-
-    finally { setLoadingRandom(false); }
-
-  };
+    const fetchNewRandom = async () => {
 
 
 
-  const handleSearch = async (e: React.FormEvent) => {
-
-    e.preventDefault();
-
-    if (!searchQuery.trim()) {
-
-      setIsSearching(false);
-
-      setHasSearched(false);
-
-      return;
-
-    }
+      setLoadingRandom(true);
 
 
 
-    setIsSearching(true);
+      const controller = new AbortController();
 
-    setHasSearched(true);
 
-    
 
-    try {
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
 
-      const res = await fetch(`/api/quotes/search?q=${encodeURIComponent(searchQuery)}`);
 
-      const data = await res.json();
 
-      setSearchResults(data);
+  
 
-    } catch (err) {
 
-      console.error(err);
 
-      setSearchResults([]);
+      try {
 
-    } finally {
 
-      setIsSearching(false);
 
-    }
+        const res = await fetch("/api/quotes/random", { signal: controller.signal });
 
-  };
+
+
+        if (!res.ok) throw new Error("Failed to fetch");
+
+
+
+        const data = await res.json();
+
+
+
+        setRandomQuote(data);
+
+
+
+      } catch (err) { 
+
+
+
+        console.error(err); 
+
+
+
+        // Optionally handle error state here
+
+
+
+      } finally { 
+
+
+
+        clearTimeout(timeoutId);
+
+
+
+        setLoadingRandom(false); 
+
+
+
+      }
+
+
+
+    };
+
+
+
+  
+
+
+
+    const handleSearch = async (e: React.FormEvent) => {
+
+
+
+      e.preventDefault();
+
+
+
+      if (!searchQuery.trim()) {
+
+
+
+        setIsSearching(false);
+
+
+
+        setHasSearched(false);
+
+
+
+        return;
+
+
+
+      }
+
+
+
+  
+
+
+
+      setIsSearching(true);
+
+
+
+      setHasSearched(true);
+
+
+
+      const controller = new AbortController();
+
+
+
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+
+
+      
+
+
+
+      try {
+
+
+
+        const res = await fetch(`/api/quotes/search?q=${encodeURIComponent(searchQuery)}`, { signal: controller.signal });
+
+
+
+        const data = await res.json();
+
+
+
+        setSearchResults(data);
+
+
+
+      } catch (err) {
+
+
+
+        console.error(err);
+
+
+
+        setSearchResults([]);
+
+
+
+      } finally {
+
+
+
+        clearTimeout(timeoutId);
+
+
+
+        setIsSearching(false);
+
+
+
+      }
+
+
+
+    };
+
+
+
+  
 
 
 
@@ -270,7 +384,7 @@ export default function Home() {
 
 
 
-                 <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                 <Loader2 className="w-6 h-6 animate-spin text-primary" />
 
 
 
@@ -394,135 +508,87 @@ export default function Home() {
 
 
 
-                                {/* Random Quote */}
+            {/* Random Quote */}
 
 
 
-  
+            <div className="flex flex-col gap-6">
 
 
 
-                                <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between">
 
 
 
-  
+                <div className="flex items-center gap-3">
 
 
 
-                                  <div className="flex items-center justify-between">
+                  <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
 
 
 
-  
+                  <div className="flex items-center gap-1.5 px-2 py-1 bg-secondary border border-border">
 
 
 
-                                    <div className="flex items-center gap-2">
+                     <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
 
 
 
-  
+                     <span className="text-[10px] font-mono text-muted-foreground font-medium">
 
 
 
-                                      <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
+                       {randomQuote?.total ? new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(randomQuote.total) : '---'}
 
 
 
-  
+                     </span>
 
 
 
-                                      <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded-none font-mono">
+                  </div>
 
 
 
-  
+                </div>
 
 
 
-                                        {randomQuote?.total ? new Intl.NumberFormat().format(randomQuote.total) : '---'}
+                <button 
 
 
 
-  
+                  onClick={fetchNewRandom} 
 
 
 
-                                      </span>
+                  disabled={loadingRandom}
 
 
 
-  
+                  className="text-xs font-bold uppercase tracking-wider text-foreground hover:text-primary flex items-center gap-2 disabled:opacity-50 transition-colors"
 
 
 
-                                    </div>
+                >
 
 
 
-  
+                  {loadingRandom ? <Loader2 className="w-3 h-3 animate-spin text-primary" /> : <RefreshCw className="w-3 h-3" />}
 
 
 
-                                    <button 
+                  Next Quote
 
 
 
-  
+                </button>
 
 
 
-                                      onClick={fetchNewRandom} 
-
-
-
-  
-
-
-
-                                      disabled={loadingRandom}
-
-
-
-  
-
-
-
-                                      className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-primary dark:hover:text-primary flex items-center gap-2 disabled:opacity-50 transition-colors"
-
-
-
-  
-
-
-
-                                    >
-
-
-
-  
-
-
-
-                                      {loadingRandom ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
-
-
-
-  
-
-
-
-                                      Next Quote
-
-
-
-  
-
-
-
-                                    </button>
+              </div>
 
 
 

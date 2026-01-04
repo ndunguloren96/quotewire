@@ -3,28 +3,43 @@
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { motion } from "framer-motion"
 
 export function ModeToggle() {
-  const { setTheme, theme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
-  // Avoid hydration mismatch
   React.useEffect(() => {
     setMounted(true)
   }, [])
 
   if (!mounted) {
-    return <div className="w-9 h-9" /> // Placeholder
+    return <div className="w-14 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 opacity-50" />
   }
+
+  const isDark = theme === "dark"
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative w-9 h-9 flex items-center justify-center hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className={`
+        relative w-14 h-8 rounded-full p-1 transition-colors duration-500 ease-in-out focus:outline-none 
+        ${isDark ? "bg-zinc-800/80 hover:bg-zinc-800" : "bg-zinc-200/80 hover:bg-zinc-200"}
+      `}
       aria-label="Toggle theme"
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-black dark:text-white absolute" />
-      <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-black dark:text-white absolute" />
+      <motion.div
+        layout
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        className="flex items-center justify-center w-6 h-6 rounded-full shadow-sm bg-white"
+        animate={{ x: isDark ? 24 : 0 }}
+      >
+        {isDark ? (
+          <Moon className="w-3.5 h-3.5 text-primary" fill="currentColor" />
+        ) : (
+          <Sun className="w-3.5 h-3.5 text-amber-500" fill="currentColor" />
+        )}
+      </motion.div>
     </button>
   )
 }
