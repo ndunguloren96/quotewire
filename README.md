@@ -93,9 +93,10 @@ src/
 scripts/                 # Database setup and seeding scripts
 ```
 
-## Credits
+## Contributing
+Contributions are welcome! Please feel free to submit a pull request.
 
-Built by [@loren_kamau](https://x.com/loren_kamau)
+Creator [@loren_kamau](https://x.com/loren_kamau)
 
 ## License
 
