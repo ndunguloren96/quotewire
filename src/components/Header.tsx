@@ -33,6 +33,7 @@ export function Header() {
           width={32} 
           height={32} 
           className="w-8 h-8 object-contain"
+	  priority
         />
         <span className="font-serif font-bold text-2xl tracking-tighter">
           QuoteWire

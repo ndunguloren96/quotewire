@@ -54,6 +54,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/quotewire.png" as="image" />
+        <link rel="icon" href="/quotewire.ico" sizes="any" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
