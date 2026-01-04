@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
+  // SignInButton,
+  // SignUpButton,
   SignedIn,
-  SignedOut,
+  // SignedOut,
   UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,44 +34,55 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300`}
         >
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                if ('serviceWorker' in navigator) {
-                  window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                      console.log('ServiceWorker registration successful');
-                    }, function(err) {
-                      console.log('ServiceWorker registration failed: ', err);
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', function() {
+                      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                      }, function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                      });
                     });
-                  });
-                }
-              `,
-            }}
-          />
-          <header className="flex justify-between items-center p-4 gap-4 h-16 border-b">
-            <div className="font-bold text-xl tracking-tight">QuoteWire</div>
-            <div className="flex items-center gap-4">
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton>
-                  <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 px-4 cursor-pointer">
-                    Sign Up
-                  </button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </header>
-          <main>
-            {children}
-          </main>
+                  }
+                `,
+              }}
+            />
+            <header className="flex justify-between items-center p-6 gap-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-50">
+              <div className="font-serif font-bold text-2xl tracking-tighter">QuoteWire</div>
+              <div className="flex items-center gap-4">
+                <ModeToggle />
+                
+                {/* Auth hidden for now */}
+                {/* <SignedOut>
+                  <SignInButton />
+                  <SignUpButton>
+                    <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 px-4 cursor-pointer">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
+                </SignedOut> */}
+                
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </div>
+            </header>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

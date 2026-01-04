@@ -5,9 +5,8 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 ## Features
 
 -   **Daily Inspiration:** A curated "Quote of the Day" that refreshes daily.
--   **Random Discovery:** Instantly discover new profound thoughts with a single click.
--   **Massive Collection:** Access thousands of quotes organized in a minimal, premium list view.
--   **Sharp Aesthetic:** A refined, "sharp" design language focusing on typography and minimalism.
+-   **Random Discovery:** Instantly discover new profound thoughts from a vast database.
+-   **Sharp Aesthetic:** A refined, "sharp" design language focusing on typography, minimalism, and Dark Mode support.
 -   **Interactive Experience:** Like, copy, and share quotes seamlessly.
 -   **Performance:** Optimized with Next.js App Router and Tailwind CSS.
 
@@ -15,10 +14,10 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 
 -   **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
 -   **Language:** TypeScript
--   **Styling:** Tailwind CSS (Sharp/Minimal Design)
+-   **Styling:** Tailwind CSS (Sharp/Minimal Design + Dark Mode)
 -   **Database:** AWS DynamoDB (Single Table Design)
--   **Authentication:** [Clerk](https://clerk.com/)
--   **AI Engine:** Google Gemini AI (via Google Generative AI SDK)
+-   **Authentication:** [Clerk](https://clerk.com/) (Soft Gate)
+-   **AI Engine:** Google Gemini AI
 -   **Icons:** Lucide React
 
 ## Getting Started
@@ -75,11 +74,11 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 src/
 ├── app/                 # Next.js App Router pages and API routes
 │   ├── api/             # Backend API endpoints
-│   ├── layout.tsx       # Root layout
-│   └── page.tsx         # Main View (Daily + Random + Collection)
+│   ├── layout.tsx       # Root layout with ThemeProvider
+│   └── page.tsx         # Main View (Daily + Random)
 ├── components/          # UI Components
-│   ├── QuoteCard.tsx    # Premium Card for Hero Quotes
-│   └── QuoteListItem.tsx# Minimal List Item for Collection
+│   ├── QuoteCard.tsx    # Premium Card
+│   └── ThemeToggle.tsx  # Light/Dark Mode Switcher
 ├── lib/                 # Utilities
 └── proxy.ts             # Clerk Middleware
 scripts/                 # Database setup and seeding
