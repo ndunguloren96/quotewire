@@ -17,7 +17,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerClasses = `flex justify-between items-center px-6 gap-4 h-20 border-b backdrop-blur-sm sticky top-0 z-50 transition-all duration-300 ${
+  const headerClasses = `flex justify-between items-center px-6 gap-4 h-16 border-b backdrop-blur-sm sticky top-0 z-50 transition-all duration-300 ${
     isScrolled 
       ? "border-zinc-100/50 dark:border-zinc-800/50 bg-background/80 dark:bg-zinc-950/80" 
       : "border-transparent bg-transparent"
@@ -25,16 +25,16 @@ export function Header() {
 
   return (
     <header className={headerClasses}>
-      <Link href="/" className="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer group mr-auto">
+      <Link href="/" className="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer group mr-auto">
         <Image 
           src="/quotewire.png" 
           alt="QuoteWire Logo" 
-          width={60} 
-          height={60} 
-          className="w-[60px] h-[60px] object-contain"
+          width={32} 
+          height={32} 
+          className="w-8 h-8 object-contain"
           priority
         />
-        <span className="font-serif font-bold text-2xl tracking-tighter hidden sm:block">
+        <span className="font-serif font-bold text-2xl tracking-tighter">
           QuoteWire
         </span>
       </Link>
