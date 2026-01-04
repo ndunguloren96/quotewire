@@ -394,31 +394,103 @@ export default function Home() {
 
 
 
-            {/* Random Quote */}
+                      {/* Random Quote */}
 
 
 
-            <div className="flex flex-col gap-6">
+  
 
 
 
-              <div className="flex items-center justify-between">
+                      <div className="flex flex-col gap-6">
 
 
 
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
+  
 
 
 
-                <button 
+                        <div className="flex items-center justify-between">
 
 
 
-                  onClick={fetchNewRandom} 
+  
 
 
 
-                  disabled={loadingRandom}
+                          <div className="flex items-center gap-2">
+
+
+
+  
+
+
+
+                            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Random Discovery</h2>
+
+
+
+  
+
+
+
+                            <span className="text-[10px] text-muted-foreground/60 bg-secondary px-1.5 py-0.5 rounded-none font-mono">
+
+
+
+  
+
+
+
+                              {randomQuote?.total ? new Intl.NumberFormat().format(randomQuote.total) : '---'}
+
+
+
+  
+
+
+
+                            </span>
+
+
+
+  
+
+
+
+                          </div>
+
+
+
+  
+
+
+
+                          <button 
+
+
+
+  
+
+
+
+                            onClick={fetchNewRandom} 
+
+
+
+  
+
+
+
+                            disabled={loadingRandom}
+
+
+
+  
+
+
+
+            
 
 
 
