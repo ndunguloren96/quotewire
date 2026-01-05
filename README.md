@@ -1,15 +1,14 @@
 # QuoteWire
 
-QuoteWire is a modern, single-page application (SPA) designed to deliver profound, strategic, and user-centric quotes. It leverages the power of Next.js 16 (App Router), AWS DynamoDB for scalable storage, and Google Gemini AI for content generation and discovery.
+QuoteWire is a modern, single-page application (SPA) designed to deliver profound quotes. It leverages the power of Next.js 16 (App Router), AWS DynamoDB for scalable storage, and Google Gemini AI for content generation and discovery.
 
 ## Features
 
 -   **Daily Inspiration:** A curated "Quote of the Day" that refreshes daily.
 -   **Random Discovery:** Instantly discover new profound thoughts from a vast database of thousands of quotes.
 -   **Total Quote Counter:** Real-time counter showing the total number of quotes available on the platform.
--   **Sharp Aesthetic:** A refined, "sharp" design language focusing on typography, minimalism, and premium UX.
 -   **Advanced Search:** Search for quotes by author or keywords with professionally handled empty states.
--   **Premium Dark Mode:** Custom-built, animated theme toggle with a smooth, high-quality feel.
+-   **Premium UI:** Custom-built, animated theme toggle with a smooth, high-quality feel.
 -   **No Authentication Required:** A seamless, friction-free experience for all users.
 -   **Mobile Friendly:** Fully responsive design that adapts beautifully to any device.
 -   **SEO Optimized:** Comprehensive metadata for search engine visibility and social sharing.
@@ -36,7 +35,7 @@ QuoteWire is a modern, single-page application (SPA) designed to deliver profoun
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/quotewire.git
+    git clone https://github.com/ndunguloren96/quotewire.git
     cd quotewire
     ```
 
