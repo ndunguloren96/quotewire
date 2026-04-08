@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Home, ArrowLeft, Quote } from 'lucide-react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Home, ArrowLeft, Quote } from "lucide-react";
 
 export default function NotFound() {
   const router = useRouter();
@@ -43,12 +43,12 @@ export default function NotFound() {
             animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
             transition={{
               duration: 0.8,
-              ease: [0.22, 1, 0.36, 1]
+              ease: [0.22, 1, 0.36, 1],
             }}
           >
             404
           </motion.h1>
-          <motion.div 
+          <motion.div
             className="absolute -top-4 -right-8 text-primary rotate-12"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -64,9 +64,7 @@ export default function NotFound() {
           transition={{ delay: 0.3 }}
           className="space-y-3"
         >
-          <h2 className="text-3xl font-bold tracking-tight">
-            Page Not Found
-          </h2>
+          <h2 className="text-3xl font-bold tracking-tight">Page Not Found</h2>
           <p className="text-muted-foreground text-lg">
             We couldn't find the page you were looking for.
           </p>
@@ -80,16 +78,23 @@ export default function NotFound() {
           className="mx-auto"
         >
           <div className="relative p-8 bg-card border border-border rounded-2xl shadow-sm max-w-md mx-auto group hover:border-primary/50 transition-colors duration-300">
-            <Quote className="absolute -top-3 -left-3 text-primary bg-background p-1 border border-border rounded-full group-hover:scale-110 transition-transform duration-300" size={32} />
+            <Quote
+              className="absolute -top-3 -left-3 text-primary bg-background p-1 border border-border rounded-full group-hover:scale-110 transition-transform duration-300"
+              size={32}
+            />
             <figure className="text-center">
               <blockquote className="font-serif text-xl italic text-foreground/90 leading-relaxed">
-                "Not all those who wander are lost... <br/>
+                "Not all those who wander are lost... <br />
                 <span className="text-muted-foreground text-base not-italic mt-2 block font-sans">
                   (but it seems you might be)
-                </span>"
+                </span>
+                "
               </blockquote>
               <figcaption className="text-sm text-primary font-bold mt-4 tracking-wide uppercase">
-                J.R.R. Tolkien <span className="text-muted-foreground font-normal normal-case opacity-50 ml-1">...ish</span>
+                J.R.R. Tolkien{" "}
+                <span className="text-muted-foreground font-normal normal-case opacity-50 ml-1">
+                  ...ish
+                </span>
               </figcaption>
             </figure>
           </div>
@@ -105,14 +110,20 @@ export default function NotFound() {
             href="/"
             className="group flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25 active:scale-95"
           >
-            <Home size={18} className="group-hover:-translate-y-0.5 transition-transform" />
+            <Home
+              size={18}
+              className="group-hover:-translate-y-0.5 transition-transform"
+            />
             Return Home
           </Link>
           <button
             onClick={() => router.back()}
             className="group flex items-center gap-2 px-8 py-3 bg-secondary text-secondary-foreground rounded-full font-medium transition-all hover:bg-secondary/80 hover:scale-105 active:scale-95"
           >
-            <ArrowLeft size={18} className="group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft
+              size={18}
+              className="group-hover:-translate-x-0.5 transition-transform"
+            />
             Go Back
           </button>
         </motion.div>

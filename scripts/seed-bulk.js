@@ -1,5 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  BatchWriteCommand,
+} from "@aws-sdk/lib-dynamodb";
 import * as dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
@@ -18,13 +21,13 @@ const docClient = DynamoDBDocumentClient.from(client);
 const TABLE_NAME = "QuoteWire_Main";
 
 async function loadQuotes() {
-  const allQuotes: any[] = [];
+  const allQuotes = [];
 
   // 1. JamesFT (bulk_quotes.json) - keys: quoteText, quoteAuthor
   try {
     const raw = fs.readFileSync("data/bulk_quotes.json", "utf-8");
     const data = JSON.parse(raw);
-    data.forEach((q: any) => {
+    data.forEach((q) => {
       if (q.quoteText && q.quoteAuthor) {
         allQuotes.push({
           text: q.quoteText,
@@ -33,13 +36,15 @@ async function loadQuotes() {
         });
       }
     });
-  } catch (e) { console.log("Error loading bulk_quotes.json", e); }
+  } catch (e) {
+    console.log("Error loading bulk_quotes.json", e);
+  }
 
   // 2. Nasrul (nasrul_quotes.json) - keys: text, from
   try {
     const raw = fs.readFileSync("data/nasrul_quotes.json", "utf-8");
     const data = JSON.parse(raw);
-    data.forEach((q: any) => {
+    data.forEach((q) => {
       if (q.text && q.from) {
         allQuotes.push({
           text: q.text,
@@ -48,13 +53,15 @@ async function loadQuotes() {
         });
       }
     });
-  } catch (e) { console.log("Error loading nasrul_quotes.json", e); }
+  } catch (e) {
+    console.log("Error loading nasrul_quotes.json", e);
+  }
 
   // 3. Ata (ata_quotes.json) - keys: id, text, author
   try {
     const raw = fs.readFileSync("data/ata_quotes.json", "utf-8");
     const data = JSON.parse(raw);
-    data.forEach((q: any) => {
+    data.forEach((q) => {
       if (q.text && q.author) {
         allQuotes.push({
           text: q.text,
@@ -63,7 +70,9 @@ async function loadQuotes() {
         });
       }
     });
-  } catch (e) { console.log("Error loading ata_quotes.json", e); }
+  } catch (e) {
+    console.log("Error loading ata_quotes.json", e);
+  }
 
   console.log(`Loaded ${allQuotes.length} quotes in total.`);
   return allQuotes;
@@ -71,7 +80,6 @@ async function loadQuotes() {
 
 async function seed() {
   const quotes = await loadQuotes();
-  
   // Chunk into batches of 25
   const chunks = [];
   for (let i = 0; i < quotes.length; i += 25) {
@@ -87,7 +95,6 @@ async function seed() {
       const randomHash = Math.random().toString(36).substring(2, 8);
       // Ensure unique ID even in tight loop
       const quoteId = `${timestamp}_${randomHash}_${Math.floor(Math.random() * 1000)}`;
-      
       return {
         PutRequest: {
           Item: {
@@ -105,20 +112,23 @@ async function seed() {
     });
 
     try {
-      await docClient.send(new BatchWriteCommand({
-        RequestItems: {
-          [TABLE_NAME]: putRequests,
-        },
-      }));
+      await docClient.send(
+        new BatchWriteCommand({
+          RequestItems: {
+            [TABLE_NAME]: putRequests,
+          },
+        }),
+      );
       processed += chunk.length;
       if (processed % 500 === 0) console.log(`Seeded ${processed} quotes...`);
-      
       // Throttle slightly to avoid WCU throttle
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise((r) => setTimeout(r, 100));
     } catch (err) {
       console.error("Error writing batch:", err);
     }
   }
 }
 
-seed().then(() => console.log("Bulk seeding complete!")).catch(console.error);
+seed()
+  .then(() => console.log("Bulk seeding complete!"))
+  .catch(console.error);

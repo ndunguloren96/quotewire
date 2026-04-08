@@ -11,10 +11,11 @@ async function list() {
   // Actually the SDK doesn't have a direct listModels on the genAI instance sometimes depending on version?
   // Let's try the REST API directly or check SDK docs.
   // In the latest SDK, it might be different.
-  
   // Try calling it and see what happens
   try {
-    const result = await genAI.getGenerativeModel({ model: "gemini-pro" }).generateContent("test");
+    const result = await genAI
+      .getGenerativeModel({ model: "gemini-pro" })
+      .generateContent("test");
     console.log("gemini-pro works");
   } catch (e) {
     console.log("gemini-pro fails");

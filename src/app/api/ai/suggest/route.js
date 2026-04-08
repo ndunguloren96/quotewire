@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const { liked_quotes, preferred_categories } = await request.json();
 
@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
     // Try multiple model names for 2026 compatibility
     const models = ["gemini-3-flash", "gemini-2.0-flash", "gemini-1.5-flash"];
     let responseText = "";
-    
     for (const modelName of models) {
       try {
         const model = genAI.getGenerativeModel({ model: modelName });
@@ -32,7 +31,11 @@ export async function POST(request: NextRequest) {
     if (!responseText) {
       // Fallback if AI fails
       return NextResponse.json([
-        { text: "The only limit to our realization of tomorrow will be our doubts of today.", author: "Franklin D. Roosevelt", tags: ["Hope", "Future"] }
+        {
+          text: "The only limit to our realization of tomorrow will be our doubts of today.",
+          author: "Franklin D. Roosevelt",
+          tags: ["Hope", "Future"],
+        },
       ]);
     }
 
@@ -40,6 +43,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(JSON.parse(jsonStr));
   } catch (error) {
     console.error("Error in AI suggest:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }

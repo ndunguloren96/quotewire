@@ -4,13 +4,15 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import * as dotenv from "dotenv";
 import path from "path";
 import { CATEGORIES } from "../src/lib/categories";
-import * as crypto from "crypto";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 // @ts-ignore
-const model = genAI.getGenerativeModel({ model: "gemini-3-flash" }, { apiVersion: "v1" });
+const model = genAI.getGenerativeModel(
+  { model: "gemini-3-flash" },
+  { apiVersion: "v1" },
+);
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION || "us-east-1",
@@ -23,7 +25,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 const TABLE_NAME = "QuoteWire_Main";
 
-async function generateQuotes(category: string) {
+async function generateQuotes(category) {
   const prompt = `Generate 5 unique, profound quotes for the category '${category}' in JSON format. 
   Return ONLY a valid JSON array of objects with the following keys:
   - text: the quote text
@@ -48,17 +50,14 @@ async function generateQuotes(category: string) {
 
 async function seed() {
   // Seeding a subset of categories for demonstration
-  const categoriesToSeed = CATEGORIES.slice(0, 5); 
-  
+  const categoriesToSeed = CATEGORIES.slice(0, 5);
   for (const category of categoriesToSeed) {
     console.log(`Generating quotes for category: ${category}...`);
     const quotes = await generateQuotes(category);
-    
     for (const quote of quotes) {
       const timestamp = Date.now();
       const randomHash = Math.random().toString(36).substring(2, 8);
       const quoteId = `${timestamp}_${randomHash}`;
-      
       const item = {
         PK: `CAT#${category}`,
         SK: `QUOTE#${quoteId}`,
@@ -71,10 +70,12 @@ async function seed() {
       };
 
       try {
-        await docClient.send(new PutCommand({
-          TableName: TABLE_NAME,
-          Item: item,
-        }));
+        await docClient.send(
+          new PutCommand({
+            TableName: TABLE_NAME,
+            Item: item,
+          }),
+        );
         console.log(`Saved quote by ${quote.author} in ${category}`);
       } catch (err) {
         console.error(`Error saving quote:`, err);
@@ -83,4 +84,6 @@ async function seed() {
   }
 }
 
-seed().then(() => console.log("Seeding complete!")).catch(console.error);
+seed()
+  .then(() => console.log("Seeding complete!"))
+  .catch(console.error);

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Github, Star } from "lucide-react";
 
 export function GitHubStar() {
-  const [stars, setStars] = React.useState<number | null>(null);
+  const [stars, setStars] = React.useState(null);
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
@@ -14,21 +14,22 @@ export function GitHubStar() {
       const cacheTime = localStorage.getItem("github_stars_cache_time");
       const now = Date.now();
 
-      if (cached && cacheTime && now - parseInt(cacheTime) < 3600000) { // 1 hour cache
+      if (cached && cacheTime && now - parseInt(cacheTime) < 3600000) {
+        // 1 hour cache
         setStars(parseInt(cached));
         setIsVisible(true);
         return;
       }
 
       try {
-        const res = await fetch("https://api.github.com/repos/ndunguloren96/quotewire");
+        const res = await fetch(
+          "https://api.github.com/repos/ndunguloren96/quotewire",
+        );
         if (!res.ok) throw new Error("Repo not found");
         const data = await res.json();
-        
         const count = data.stargazers_count;
         setStars(count);
         setIsVisible(true);
-        
         localStorage.setItem("github_stars_cache", count.toString());
         localStorage.setItem("github_stars_cache_time", now.toString());
       } catch (error) {

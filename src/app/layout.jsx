@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/Header";
@@ -14,10 +13,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "QuoteWire | Premium Daily Inspiration",
-  description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
-  keywords: ["quotes", "inspiration", "wisdom", "daily quote", "motivation", "philosophy", "quotewire"],
+  description:
+    "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
+  keywords: [
+    "quotes",
+    "inspiration",
+    "wisdom",
+    "daily quote",
+    "motivation",
+    "philosophy",
+    "quotewire",
+  ],
   icons: {
     icon: "/quotewire.ico",
     shortcut: "/quotewire.ico",
@@ -25,7 +33,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "QuoteWire | Premium Daily Inspiration",
-    description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
+    description:
+      "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
     type: "website",
     locale: "en_US",
     siteName: "QuoteWire",
@@ -41,16 +50,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "QuoteWire | Premium Daily Inspiration",
-    description: "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
+    description:
+      "Discover profound quotes. Your daily source for wisdom, motivation, and creative thought.",
     images: ["/quotewire.png"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -95,20 +101,21 @@ export default function RootLayout({
               `,
             }}
           />
+
           <Header />
-          <main className="flex-grow pt-4">
-            {children}
-          </main>
-          
+          <main className="flex-grow pt-4">{children}</main>
+
           <footer className="border-t border-zinc-100 dark:border-zinc-800 py-8 mt-12">
             <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-medium">
-              <p>QuoteWire | © {new Date().getFullYear()} | All rights reserved.</p>
+              <p>
+                QuoteWire | © {new Date().getFullYear()} | All rights reserved.
+              </p>
               <p>
                 Built by{" "}
-                <a 
-                  href="https://lorenkamau.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href="https://lorenkamau.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-foreground hover:text-primary transition-colors underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2"
                 >
                   @loren_kamau

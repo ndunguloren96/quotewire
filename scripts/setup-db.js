@@ -1,4 +1,8 @@
-import { DynamoDBClient, CreateTableCommand, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBClient,
+  CreateTableCommand,
+  DescribeTableCommand,
+} from "@aws-sdk/client-dynamodb";
 import * as dotenv from "dotenv";
 import path from "path";
 
@@ -18,7 +22,7 @@ async function setupTable() {
   try {
     await client.send(new DescribeTableCommand({ TableName: TABLE_NAME }));
     console.log(`Table "${TABLE_NAME}" already exists.`);
-  } catch (error: any) {
+  } catch (error) {
     if (error.name === "ResourceNotFoundException") {
       console.log(`Creating table "${TABLE_NAME}"...`);
       const command = new CreateTableCommand({

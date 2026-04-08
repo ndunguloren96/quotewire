@@ -5,10 +5,10 @@ import { QuoteCard } from "@/components/QuoteCard";
 import { Search, RefreshCw, Loader2 } from "lucide-react";
 
 export default function Home() {
-  const [dailyQuote, setDailyQuote] = useState<any>(null);
-  const [randomQuote, setRandomQuote] = useState<any>(null);
+  const [dailyQuote, setDailyQuote] = useState(null);
+  const [randomQuote, setRandomQuote] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [loadingDaily, setLoadingDaily] = useState(true);
@@ -37,7 +37,9 @@ export default function Home() {
     const timeoutId = setTimeout(() => controller.abort(), 8000);
 
     try {
-      const res = await fetch("/api/quotes/random", { signal: controller.signal });
+      const res = await fetch("/api/quotes/random", {
+        signal: controller.signal,
+      });
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setRandomQuote(data);
@@ -49,7 +51,7 @@ export default function Home() {
     }
   };
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) {
       setIsSearching(false);
@@ -63,9 +65,12 @@ export default function Home() {
     const timeoutId = setTimeout(() => controller.abort(), 8000);
 
     try {
-      const res = await fetch(`/api/quotes/search?q=${encodeURIComponent(searchQuery)}`, {
-        signal: controller.signal,
-      });
+      const res = await fetch(
+        `/api/quotes/search?q=${encodeURIComponent(searchQuery)}`,
+        {
+          signal: controller.signal,
+        },
+      );
       const data = await res.json();
       setSearchResults(data);
     } catch (err) {
@@ -81,7 +86,10 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-6 py-12">
       {/* Search Bar */}
       <div className="flex justify-end mb-16">
-        <form onSubmit={handleSearch} className="relative w-full max-w-sm group">
+        <form
+          onSubmit={handleSearch}
+          className="relative w-full max-w-sm group"
+        >
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
@@ -127,7 +135,8 @@ export default function Home() {
           ) : (
             <div className="text-center py-24 border border-border bg-secondary/20">
               <p className="text-muted-foreground italic mb-2">
-                "Not all those who wander are lost, but this search found nothing."
+                "Not all those who wander are lost, but this search found
+                nothing."
               </p>
               <p className="text-xs text-muted-foreground/60 uppercase tracking-widest">
                 — J.R.R. Tolkien (Adapted)
