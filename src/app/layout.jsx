@@ -108,6 +108,7 @@ export default function RootLayout({ children }) {
           <footer className="border-t border-zinc-100 dark:border-zinc-800 py-8 mt-12">
             <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground font-medium">
               <p>
+<<<<<<< HEAD:src/app/layout.jsx
                 QuoteWire | © {new Date().getFullYear()} | All rights reserved.
               </p>
               <p>
@@ -120,6 +121,9 @@ export default function RootLayout({ children }) {
                 >
                   @loren_kamau
                 </a>
+=======
+                Built by Loren Kamau
+>>>>>>> 2f2d1d6 (fix type error):src/app/layout.tsx
               </p>
             </div>
           </footer>
